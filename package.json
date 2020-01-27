@@ -1,0 +1,39 @@
+{
+  "name": "premier-league-api",
+  "version": "1.0.0",
+  "description": "An API that serves the latest scores of fixtures of matches in a “Mock Premier League”",
+  "main": "server.js",
+  "scripts": {
+    "clean": "rm -rf dist && mkdir dist",
+    "build-server": "babel src --out-dir dist",
+    "build": "npm run clean && npm run build-server",
+    "start:dev": "nodemon ./src/app.js --exec babel-node",
+    "start": "node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fegoworks/premier-league-api.git"
+  },
+  "keywords": [
+    "premier-league",
+    "football"
+  ],
+  "author": "Edafe Oghenefego",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fegoworks/premier-league-api/issues"
+  },
+  "homepage": "https://github.com/fegoworks/premier-league-api#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
