@@ -8,7 +8,8 @@
     "build-server": "babel src --out-dir dist",
     "build": "npm run clean && npm run build-server",
     "start:dev": "nodemon ./src/app.js --exec babel-node",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "migrations": "node ./src/models/db/migrations/createTables.js createTables"
   },
   "repository": {
     "type": "git",
@@ -28,13 +29,18 @@
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
     "@babel/node": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "nodemon": "^2.0.2",
     "pg": "^7.17.1"
   },
   "dependencies": {
+    "@babel/runtime": "^7.8.3",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "uuidv4": "^6.0.2"
   }
 }
