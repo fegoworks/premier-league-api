@@ -32,6 +32,35 @@ class TeamController {
       });
     }
   }
+
+  static async viewTeam(req, res) {
+    try {
+      const teamId = req.params.id
+      console.log(teamId);
+
+      const found = await TeamModel.findById(teamId)
+      console.log(found);
+
+
+      if (!found) {
+        return res.status(404).json({
+          status: 'Not found',
+          error: 'Team not found in the database'
+        })
+      } else {
+        return res.status(200).json({
+          status: 'success',
+          data: found
+        })
+      }
+
+    } catch (error) {
+      return res.status(400).json({
+        status: 'Request failed',
+        error: error,
+      });
+    }
+  }
 }
 
 export default TeamController
