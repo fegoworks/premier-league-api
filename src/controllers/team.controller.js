@@ -107,6 +107,38 @@ class TeamController {
       });
     }
   }
+
+  /**
+   * Delete An Article
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
+   */
+  static async deleteTeam(req, res) {
+    try {
+      const id = req.params.id
+      const found = await TeamModel.findById(id)
+
+      if (found) {
+        const {
+          rows
+        } = await TeamModel.delete(id)
+        return res.status(200).json({
+          status: 'Success',
+          data: {
+            message: 'team successfully deleted',
+            teamId: rows[0].teamId,
+          },
+        })
+      }
+
+      return res.status(404).json({
+        message: 'team was not found',
+      })
+    } catch (error) {
+      return res.status(400).send(error)
+    }
+  }
 }
 
 export default TeamController
