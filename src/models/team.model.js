@@ -10,6 +10,8 @@ class TeamModel {
     this.teamName = team.teamName;
     this.createdBy = team.createdBy;
     this.createdOn = team.createdOn;
+    this.modifiedBy = team.modifiedBy;
+    this.modifiedOn = team.modifiedOn;
   }
 
   static async add(team, userid) {
@@ -49,6 +51,46 @@ class TeamModel {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  static async edit(args) {
+    try {
+
+      const {
+        teamId,
+        team,
+        editor: modifiedBy
+      } = args
+      const found = await this.findById(teamId)
+
+      if (found) {
+        const updateQuery = `UPDATE teams
+        SET "teamName"=$1,"modifiedBy"=$2,"modifiedOn"=$3
+        WHERE "teamId"=$4 returning *`;
+
+        team.modifiedBy = modifiedBy
+        team.modifiedOn = new Date()
+
+        const values = [
+          team.teamName,
+          team.modifiedBy,
+          team.modifiedOn,
+          teamId
+        ]
+
+        const {
+          rows
+        } = await query(updateQuery, values)
+        const updatedTeam = rows[0]
+
+        console.log(updatedTeam);
+
+        return Promise.resolve(updatedTeam)
+      }
+    } catch (error) {
+      return Promise.reject(error)
+    }
+
   }
 }
 
