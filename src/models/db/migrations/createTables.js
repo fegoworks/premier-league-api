@@ -32,7 +32,9 @@ const createTables = () => {
     "teamId" VARCHAR (50) PRIMARY KEY, 
     "teamName" VARCHAR (50) UNIQUE NOT NULL, 
     "createdBy" VARCHAR (50) NOT NULL REFERENCES users (userid),
-    "createdOn" Timestamp DEFAULT CURRENT_TIMESTAMP
+    "createdOn" Timestamp DEFAULT CURRENT_TIMESTAMP,
+    "modifiedBy" VARCHAR (50) REFERENCES users (userid),
+    "modifiedOn" Timestamp 
     );
   
     `;

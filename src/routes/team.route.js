@@ -4,7 +4,8 @@ import TeamController from '../controllers/team.controller'
 
 const router = express.Router()
 
-router.post('/team/', verifyToken.verify, TeamController.addTeam)
-router.get('/team/:id', verifyToken.verify, TeamController.viewTeam)
+router.post('/teams/', verifyToken.verify, TeamController.addTeam)
+router.get('/teams/:id', verifyToken.verify, TeamController.viewTeam)
+router.patch('/teams/:id', verifyToken.verify, TeamController.editTeam)
 
 export default router

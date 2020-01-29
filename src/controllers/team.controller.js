@@ -16,7 +16,7 @@ class TeamController {
 
       return res.status(200).json({
         status: "success",
-        message: `${savedTeam.name} added successfully`,
+        message: `${savedTeam.teamName} added successfully`,
         data: savedTeam
       })
     } catch (error) {
@@ -32,6 +32,13 @@ class TeamController {
       });
     }
   }
+
+  /**
+   * View A Team
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} team object
+   */
 
   static async viewTeam(req, res) {
     try {
@@ -55,6 +62,45 @@ class TeamController {
       }
 
     } catch (error) {
+      return res.status(400).json({
+        status: 'Request failed',
+        error: error,
+      });
+    }
+  }
+
+  /**
+   * Update A Team
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} team object
+   */
+  static async editTeam(req, res) {
+    try {
+      const teamId = req.params.id
+      const team = req.body
+      const editor = req.id
+      const args = {
+        teamId,
+        team,
+        editor
+      }
+
+      const updatedTeam = await TeamModel.edit(args)
+      return res.status(200).json({
+        status: "success",
+        message: `${updatedTeam.teamName} updated successfully`,
+        data: updatedTeam
+      })
+
+    } catch (error) {
+      if (error.code === '23505') {
+        return res.status(409).json({
+          status: 'Request failed',
+          error: 'A team with this name already exists',
+        });
+      }
+
       return res.status(400).json({
         status: 'Request failed',
         error: error,
