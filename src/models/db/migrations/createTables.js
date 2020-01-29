@@ -1,4 +1,6 @@
-const { Pool } = require('pg');
+const {
+  Pool
+} = require('pg');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -23,6 +25,16 @@ const createTables = () => {
     password VARCHAR (255) NOT NULL, 
     "isAdmin" BOOLEAN DEFAULT FALSE
     );
+
+  DROP TABLE IF EXISTS teams CASCADE;
+
+  CREATE TABLE IF NOT EXISTS teams( 
+    "teamId" VARCHAR (50) PRIMARY KEY, 
+    "teamName" VARCHAR (50) UNIQUE NOT NULL, 
+    "createdBy" VARCHAR (50) NOT NULL REFERENCES users (userid),
+    "createdOn" Timestamp DEFAULT CURRENT_TIMESTAMP
+    );
+  
     `;
 
   pool

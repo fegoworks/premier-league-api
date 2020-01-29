@@ -1,6 +1,8 @@
 import query from './db/index';
 import bcrypt from 'bcrypt';
-import { uuid } from 'uuidv4';
+import {
+  uuid
+} from 'uuidv4';
 
 class UserModel {
   constructor(user) {
@@ -18,7 +20,9 @@ class UserModel {
       ...user,
     };
 
-    const { isAdmin } = newUser;
+    const {
+      isAdmin
+    } = newUser;
 
     if (isAdmin === 'false') {
       newUser.isAdmin = false;
@@ -44,7 +48,9 @@ class UserModel {
     ];
 
     try {
-      const { rows } = await query(text, values);
+      const {
+        rows
+      } = await query(text, values);
       const savedUser = rows[0];
       return Promise.resolve(savedUser);
     } catch (err) {
@@ -53,11 +59,32 @@ class UserModel {
   }
 
   static async findByEmail(email) {
-    const text = ` SELECT * FROM Users WHERE email='${email}';`;
+    const text = ` SELECT * FROM Users WHERE email= $1 `;
+    const value = [email]
+    try {
+      const {
+        rows,
+        rowCount
+      } = await query(text, value);
+      const result = {
+        rows,
+        rowCount
+      };
+      return Promise.resolve(result);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  static async findById(id) {
+    const text = ` SELECT * FROM Users WHERE userid= $1 `;
+    const value = [id]
 
     try {
-      const { rows, rowCount } = await query(text);
-      const result = { rows, rowCount };
+      const {
+        rows
+      } = await query(text, value);
+      const result = rows[0]
       return Promise.resolve(result);
     } catch (error) {
       return Promise.reject(error);
