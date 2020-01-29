@@ -1,6 +1,5 @@
 import query from './db/index';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { uuid } from 'uuidv4';
 
 class UserModel {
@@ -50,6 +49,18 @@ class UserModel {
       return Promise.resolve(savedUser);
     } catch (err) {
       return Promise.reject(err);
+    }
+  }
+
+  static async findByEmail(email) {
+    const text = ` SELECT * FROM Users WHERE email='${email}';`;
+
+    try {
+      const { rows, rowCount } = await query(text);
+      const result = { rows, rowCount };
+      return Promise.resolve(result);
+    } catch (error) {
+      return Promise.reject(error);
     }
   }
 }
