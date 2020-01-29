@@ -2,7 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import env from 'dotenv';
 
-import userRoute from './routes/user.route.js'
+import userRoute from './routes/user.route'
+import teamRoute from './routes/team.route'
 
 env.config();
 const port = process.env.PORT || 3000;
@@ -31,6 +32,7 @@ app.use(
 
 // routes
 app.use('/api/v1', userRoute)
+app.use('/api/v1', teamRoute)
 
 app.get('/', (req, res) => {
   res.send('Welcome to Mock Premier League Built by Fego');

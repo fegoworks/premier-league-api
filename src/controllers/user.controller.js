@@ -34,10 +34,22 @@ class UserController {
     }
   }
 
+  /**
+   * Signs in user
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} user object
+   */
   static async signIn(req, res) {
     try {
-      const { email, password } = req.body;
-      const { rows, rowCount } = await UserModel.findByEmail(email);
+      const {
+        email,
+        password
+      } = req.body;
+      const {
+        rows,
+        rowCount
+      } = await UserModel.findByEmail(email);
 
       if (rowCount < 1) {
         return res.status(401).json({
@@ -45,7 +57,9 @@ class UserController {
         });
       }
 
-      const { ...data } = rows[0];
+      const {
+        ...data
+      } = rows[0];
 
       // Compare password with what's stored in the database
       const isMatch = bcrypt.compareSync(password, data.password);
@@ -57,13 +71,11 @@ class UserController {
       }
 
       // Generate token
-      const token = jwt.sign(
-        {
+      const token = jwt.sign({
           id: data.userid,
           isAdmin: data.isAdmin,
         },
-        process.env.SECRET,
-        {
+        process.env.SECRET, {
           expiresIn: 86400, // expires in 24 hours
         }
       );
