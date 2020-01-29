@@ -35,6 +35,21 @@ class TeamModel {
       return Promise.reject(error);
     }
   }
+
+  static async findById(id) {
+    const text = ` SELECT * FROM teams WHERE "teamId"= $1 `;
+    const value = [id]
+
+    try {
+      const {
+        rows
+      } = await query(text, value);
+      const team = rows[0]
+      return Promise.resolve(team);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }
 
 export default TeamModel
