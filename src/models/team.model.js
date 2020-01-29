@@ -90,7 +90,17 @@ class TeamModel {
     } catch (error) {
       return Promise.reject(error)
     }
+  }
 
+  static async delete(id) {
+    try {
+      const deleteQuery = `DELETE FROM teams WHERE "teamId"=$1 returning *`
+      const value = [id]
+      const deleteTeam = await query(deleteQuery, value);
+      return Promise.resolve(deleteTeam)
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 }
 
