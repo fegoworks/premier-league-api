@@ -36,8 +36,24 @@ const createTables = () => {
     "modifiedBy" VARCHAR (50) REFERENCES users (userid),
     "modifiedOn" Timestamp 
     );
-  
-    `;
+    
+  DROP TABLE IF EXISTS fixtures CASCADE;
+
+  CREATE TABLE IF NOT EXISTS fixtures(
+    "fixtureId" VARCHAR (50) UNIQUE NOT NULL,
+    "createdAt" Timestamp DEFAULT CURRENT_TIMESTAMP,
+    "createdBy" VARCHAR (50) NOT NULL REFERENCES users (userid),
+    "matchDate" Timestamp,
+    "homeTeam" VARCHAR (50) NOT NULL REFERENCES teams ("teamName"),
+    "awayTeam" VARCHAR (50) NOT NULL REFERENCES teams ("teamName"),
+    "homeTeamScore" INT,
+    "awayTeamScore" INT,
+    "modifiedAt" Timestamp,
+    "modifiedBy" VARCHAR (50) REFERENCES users (userid),
+    status VARCHAR (15) NOT NULL,
+    PRIMARY KEY ("homeTeam", "awayTeam")
+    );
+  `;
 
   pool
     .query(table)
