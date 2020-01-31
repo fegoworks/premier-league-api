@@ -9,7 +9,8 @@
     "build": "npm run clean && npm run build-server",
     "start:dev": "nodemon ./src/app.js --exec babel-node",
     "start": "node dist/app.js",
-    "migrations": "node ./src/models/db/migrations/createTables.js createTables"
+    "migrations": "node ./src/models/db/migrations/createTables.js createTables",
+    "seeders": "node ./src/models/db/seeders/insertTableData.js insertAllTables"
   },
   "repository": {
     "type": "git",
