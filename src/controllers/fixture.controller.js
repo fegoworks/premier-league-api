@@ -77,6 +77,40 @@ class FixtureController {
       });
     }
   }
+
+  static async addScore(req, res) {
+    const fixtureId = req.params.id;
+    const userId = req.id;
+    const fixture = req.body;
+    try {
+      const args = {
+        fixtureId,
+        userId,
+        fixture
+      };
+      const found = await FixtureModel.findById(fixtureId)
+
+      if (found) {
+        const updatedWithScores = await FixtureModel.addScore(args);
+
+        return res.status(200).json({
+          status: 'success',
+          message: `Scores updated successfully`,
+          data: updatedWithScores,
+        });
+      }
+      return res.status(400).json({
+        status: 'Request failed',
+        error: 'Fixture not found',
+      })
+
+    } catch (error) {
+      return res.status(400).json({
+        status: 'Request failed',
+        error: error,
+      });
+    }
+  }
 }
 
 export default FixtureController;

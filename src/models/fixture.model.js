@@ -81,53 +81,53 @@ class FixtureModel {
       const {
         rows
       } = await query(updateQuery, values);
-      const updatedTeam = new TeamModel(rows[0]);
-      return Promise.resolve(updatedTeam);
+      const fixtureUpdate = new fixtureModel(rows[0]);
+      return Promise.resolve(fixtureUpdate);
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  // static async addScore(args) {
-  //   const {
-  //     fixtureId,
-  //     userId,
-  //     fixture
-  //   } = args
+  static async addScore(args) {
+    const {
+      fixtureId,
+      userId,
+      fixture
+    } = args
 
-  //   const {
-  //     homeTeamScore,
-  //     awayTeamScore,
-  //   } = fixture;
+    const {
+      homeTeamScore,
+      awayTeamScore,
+    } = fixture;
 
-  //   fixture.modifiedBy = userId;
-  //   fixture.modifiedAt = new Date();
-  //   const status = 'completed';
+    fixture.modifiedBy = userId;
+    fixture.modifiedAt = new Date();
+    const status = 'completed';
 
-  //   try {
-  //     const updateQuery = `UPDATE fixtures
-  //   SET "homeTeamScore"=$1,"awayTeamScore"=$2, "modifiedBy"=$3,
-  //   "modifiedAt"=$4, status=$5
-  //   WHERE "fixtureId"=$6 returning *`;
+    try {
+      const updateQuery = `UPDATE fixtures
+    SET "homeTeamScore"=$1,"awayTeamScore"=$2, "modifiedBy"=$3,
+    "modifiedAt"=$4, status=$5
+    WHERE "fixtureId"=$6 returning *`;
 
-  //     const values = [
-  //       homeTeamScore,
-  //       awayTeamScore,
-  //       fixture.modifiedBy,
-  //       fixture.modifiedAt,
-  //       status,
-  //       fixtureId
-  //     ];
+      const values = [
+        homeTeamScore,
+        awayTeamScore,
+        fixture.modifiedBy,
+        fixture.modifiedAt,
+        status,
+        fixtureId
+      ];
 
-  //     const {
-  //       rows
-  //     } = await query(updateQuery, values);
-  //     const updatedTeam = new TeamModel(rows[0]);
-  //     return Promise.resolve(updatedTeam);
-  //   } catch (error) {
-  //     return Promise.reject(error);
-  //   }
-  // }
+      const {
+        rows
+      } = await query(updateQuery, values);
+      const fixtureUpdate = new FixtureModel(rows[0]);
+      return Promise.resolve(fixtureUpdate);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 
   static async findById(id) {
     const text = `SELECT * FROM fixtures WHERE "fixtureId"=$1 `

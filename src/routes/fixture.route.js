@@ -15,4 +15,10 @@ router.patch('/fixtures/:id',
   permissions.adminOnly,
   FixtureController.editFixture)
 
+router.patch('/fixtures/:id/scores',
+  VerifyToken.verify,
+  permissions.adminOnly,
+  FixtureController.addScore)
+
+
 export default router
