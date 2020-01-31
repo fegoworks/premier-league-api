@@ -60,31 +60,6 @@ class FixtureController {
     }
   }
 
-  // static async deleteFixture(req, res) {
-  //   try {
-  //     const id = req.params.id
-  //     const found = await FixtureModel.findById(id)
-
-  //     if (found) {
-  //       const {
-  //         rows
-  //       } = await FixtureModel.delete(id)
-  //       return res.status(200).json({
-  //         status: 'Success',
-  //         data: {
-  //           message: 'Fixture successfully deleted',
-  //           fixtureId: rows[0].fixtureId,
-  //         },
-  //       })
-  //     }
-
-  //     return res.status(404).json({
-  //       message: 'Fixture was not found',
-  //     })
-  //   } catch (error) {
-  //     return res.status(400).send(error)
-  //   }
-  // }
   /**
    * Update A fixture
    * @param {object} req
@@ -136,6 +111,12 @@ class FixtureController {
     }
   }
 
+  /** 
+   * Update A fixture
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} fixture object
+   */
   static async addScore(req, res) {
     const fixtureId = req.params.id;
     const userId = req.id;
@@ -169,6 +150,39 @@ class FixtureController {
       });
     }
   }
+
+  /**
+   * Delete Fixture
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
+   */
+  static async deleteFixture(req, res) {
+    try {
+      const id = req.params.id
+      const found = await FixtureModel.findById(id)
+
+      if (found) {
+        const {
+          rows
+        } = await FixtureModel.delete(id)
+        return res.status(200).json({
+          status: 'Success',
+          data: {
+            message: 'Fixture successfully deleted',
+            fixtureId: rows[0].fixtureId,
+          },
+        })
+      }
+
+      return res.status(404).json({
+        message: 'Fixture was not found',
+      })
+    } catch (error) {
+      return res.status(400).send(error)
+    }
+  }
+
 }
 
 export default FixtureController;
