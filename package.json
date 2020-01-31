@@ -10,7 +10,8 @@
     "start:dev": "nodemon ./src/app.js --exec babel-node",
     "start": "node dist/app.js",
     "migrations": "node ./src/models/db/migrations/createTables.js createTables",
-    "seeders": "node ./src/models/db/seeders/insertTableData.js insertAllTables"
+    "seeders": "node ./src/models/db/seeders/insertTableData.js insertAllTables",
+    "test": "set NODE_ENV='TEST' && npm run migrations && npm run seeders && nyc mocha --timeout=50000 --require @babel/register ./src/test/ --exit || true"
   },
   "repository": {
     "type": "git",
@@ -32,16 +33,24 @@
     "@babel/node": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
+    "coveralls": "^3.0.9",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^2.0.2",
+    "nyc": "^15.0.0",
     "pg": "^7.17.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.8.3",
+    "@hapi/joi": "^17.1.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^7.0.1",
+    "supertest": "^4.0.2",
     "uuidv4": "^6.0.2"
   }
 }
