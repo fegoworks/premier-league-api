@@ -10,6 +10,11 @@ router.post('/fixtures',
   permissions.adminOnly,
   FixtureController.addFixture)
 
+router.get('/fixtures/:id',
+  VerifyToken.verify,
+  permissions.adminOnly,
+  FixtureController.viewFixture)
+
 router.patch('/fixtures/:id',
   VerifyToken.verify,
   permissions.adminOnly,

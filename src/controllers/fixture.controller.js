@@ -1,12 +1,11 @@
 import FixtureModel from '../models/fixture.model';
-import TeamModel from '../models/team.model';
 
 class FixtureController {
   /**
-   * Create A Team
+   * Create A Fixture
    * @param {object} req
    * @param {object} res
-   * @returns {object} team object
+   * @returns {object} fixture object
    */
   static async addFixture(req, res) {
     const user = req.id;
@@ -33,6 +32,65 @@ class FixtureController {
     }
   }
 
+  /**
+   * View A Fixture
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} fixture object
+   */
+  static async viewFixture(req, res) {
+    try {
+      const id = req.params.id
+      const fixture = await FixtureModel.findById(id)
+      if (fixture) {
+        return res.status(200).json({
+          status: "success",
+          data: fixture
+        })
+      }
+      return res.status(404).json({
+        status: 'Not found',
+        error: 'Fixture not found in the database'
+      })
+    } catch (error) {
+      return res.status(400).json({
+        status: 'Request failed',
+        error: error,
+      });
+    }
+  }
+
+  // static async deleteFixture(req, res) {
+  //   try {
+  //     const id = req.params.id
+  //     const found = await FixtureModel.findById(id)
+
+  //     if (found) {
+  //       const {
+  //         rows
+  //       } = await FixtureModel.delete(id)
+  //       return res.status(200).json({
+  //         status: 'Success',
+  //         data: {
+  //           message: 'Fixture successfully deleted',
+  //           fixtureId: rows[0].fixtureId,
+  //         },
+  //       })
+  //     }
+
+  //     return res.status(404).json({
+  //       message: 'Fixture was not found',
+  //     })
+  //   } catch (error) {
+  //     return res.status(400).send(error)
+  //   }
+  // }
+  /**
+   * Update A fixture
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} fixture object
+   */
   static async editFixture(req, res) {
     const fixtureId = req.params.id;
     const userId = req.id;
