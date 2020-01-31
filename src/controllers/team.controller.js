@@ -86,11 +86,19 @@ class TeamController {
         editor
       }
 
-      const updatedTeam = await TeamModel.edit(args)
-      return res.status(200).json({
-        status: "success",
-        message: `${updatedTeam.teamName} updated successfully`,
-        data: updatedTeam
+      const found = await TeamModel.findById(teamId)
+
+      if (found) {
+        const updatedTeam = await TeamModel.edit(args)
+        return res.status(200).json({
+          status: "success",
+          message: `${updatedTeam.teamName} updated successfully`,
+          data: updatedTeam
+        })
+      }
+      return res.status(400).json({
+        status: 'Request failed',
+        error: 'Team not found',
       })
 
     } catch (error) {

@@ -61,32 +61,27 @@ class TeamModel {
         team,
         editor: modifiedBy
       } = args
-      const found = await this.findById(teamId)
 
-      if (found) {
-        const updateQuery = `UPDATE teams
+      const updateQuery = `UPDATE teams
         SET "teamName"=$1,"modifiedBy"=$2,"modifiedOn"=$3
         WHERE "teamId"=$4 returning *`;
 
-        team.modifiedBy = modifiedBy
-        team.modifiedOn = new Date()
+      team.modifiedBy = modifiedBy
+      team.modifiedOn = new Date()
 
-        const values = [
-          team.teamName,
-          team.modifiedBy,
-          team.modifiedOn,
-          teamId
-        ]
+      const values = [
+        team.teamName,
+        team.modifiedBy,
+        team.modifiedOn,
+        teamId
+      ]
 
-        const {
-          rows
-        } = await query(updateQuery, values)
-        const updatedTeam = rows[0]
+      const {
+        rows
+      } = await query(updateQuery, values)
+      const updatedTeam = new TeamModel(rows[0])
+      return Promise.resolve(updatedTeam)
 
-        console.log(updatedTeam);
-
-        return Promise.resolve(updatedTeam)
-      }
     } catch (error) {
       return Promise.reject(error)
     }

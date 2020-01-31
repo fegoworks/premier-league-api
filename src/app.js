@@ -4,6 +4,7 @@ import env from 'dotenv';
 
 import userRoute from './routes/user.route'
 import teamRoute from './routes/team.route'
+import fixtureRoute from './routes/fixture.route'
 
 env.config();
 const port = process.env.PORT || 3000;
@@ -33,6 +34,7 @@ app.use(
 // routes
 app.use('/api/v1', userRoute)
 app.use('/api/v1', teamRoute)
+app.use('/api/v1', fixtureRoute)
 
 app.get('/', (req, res) => {
   res.send('Welcome to Mock Premier League Built by Fego');
