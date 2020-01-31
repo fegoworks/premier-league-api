@@ -117,7 +117,7 @@ class TeamController {
   }
 
   /**
-   * Delete An Article
+   * Delete Team
    * @param {object} req
    * @param {object} res
    * @returns {void} return status code 204
