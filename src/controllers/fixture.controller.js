@@ -183,6 +183,43 @@ class FixtureController {
     }
   }
 
+  /** 
+   * Get Fixtures
+   * @param {object} req
+   * @param {object} res
+   * @returns [array] fixtures array
+   */
+  static async getFixturesByStatus(req, res) {
+    try {
+      const path = req.path
+
+      let status = ""
+      if (path.includes("pending")) {
+        status = "pending"
+      } else {
+        status = "completed"
+      }
+
+      const fixtures = await FixtureModel.findByStatus(status)
+
+      if (fixtures.length > 0) {
+        return res.status(200).json({
+          status: "success",
+          data: fixtures
+        })
+      }
+      return res.status(404).json({
+        status: 'Not found',
+        error: `No ${status} fixtures`
+      })
+    } catch (error) {
+      return res.status(400).json({
+        status: 'Request failed',
+        error: error,
+      });
+    }
+  }
+
 }
 
 export default FixtureController;

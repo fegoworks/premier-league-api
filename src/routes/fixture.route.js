@@ -10,6 +10,16 @@ router.post('/fixtures',
   permissions.adminOnly,
   FixtureController.addFixture)
 
+router.get('/fixtures/pending',
+  VerifyToken.verify,
+  FixtureController.getFixturesByStatus
+)
+
+router.get('/fixtures/completed',
+  VerifyToken.verify,
+  FixtureController.getFixturesByStatus
+)
+
 router.get('/fixtures/:id',
   VerifyToken.verify,
   permissions.adminOnly,

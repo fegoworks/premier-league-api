@@ -142,6 +142,19 @@ class FixtureModel {
     }
   }
 
+  static async findByStatus(status) {
+    const text = `SELECT * FROM fixtures WHERE status=$1 `
+    const value = [status]
+    try {
+      const {
+        rows
+      } = await query(text, value)
+      return Promise.resolve(rows)
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  }
+
   static async delete(id) {
     try {
       const deleteQuery = `DELETE FROM fixtures WHERE "fixtureId"=$1 returning *`
