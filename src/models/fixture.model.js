@@ -141,6 +141,17 @@ class FixtureModel {
       return Promise.reject(error)
     }
   }
+
+  static async delete(id) {
+    try {
+      const deleteQuery = `DELETE FROM fixtures WHERE "fixtureId"=$1 returning *`
+      const value = [id]
+      const deleteFixture = await query(deleteQuery, value);
+      return Promise.resolve(deleteFixture)
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  }
 }
 
 export default FixtureModel;

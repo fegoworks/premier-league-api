@@ -25,5 +25,9 @@ router.patch('/fixtures/:id/scores',
   permissions.adminOnly,
   FixtureController.addScore)
 
+router.delete('/fixtures/:id',
+  VerifyToken.verify,
+  permissions.adminOnly,
+  FixtureController.deleteFixture)
 
 export default router
