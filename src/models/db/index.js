@@ -1,15 +1,10 @@
-import { Pool } from 'pg';
+import {
+  Pool
+} from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// let DB = '';
-
-// if (process.env.NODE_ENV === 'TEST') {
-//   DB = process.env.TEST_URL;
-// } else {
-//   DB = process.env.DB_URL;
-// }
 const pool = new Pool({
   connectionString: process.env.TEST_URL,
 });

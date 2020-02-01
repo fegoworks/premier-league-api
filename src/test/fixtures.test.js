@@ -221,6 +221,18 @@ describe('Get a fixture by its status', () => {
   });
 });
 
+describe('Get a fixture by its status', () => {
+  it('should not be able to get fixtures if not signed in ', async () => {
+    const token = ''
+
+    const response = await server
+      .get(`/api/v1/fixtures/pending/`)
+      .set('authorization', `Bearer ${token}`)
+    expect(response.status).to.equal(403);
+    expect(response.body.error).to.equal('No token provided. ');
+  });
+});
+
 // Get completed fixtures
 describe('Get a fixture by its status', () => {
   it('should get a fixture if signed in ', async () => {
@@ -238,6 +250,17 @@ describe('Get a fixture by its status', () => {
   });
 });
 
+describe('Get a fixture by its status', () => {
+  it('should not be able to get fixtures if not signed in ', async () => {
+    const token = ''
+
+    const response = await server
+      .get(`/api/v1/fixtures/completed/`)
+      .set('authorization', `Bearer ${token}`)
+    expect(response.status).to.equal(403);
+    expect(response.body.error).to.equal('No token provided. ');
+  });
+});
 
 // Update fixtures with scores
 describe('Update Fixtures with scores', () => {
@@ -280,5 +303,23 @@ describe('Update Fixtures with scores', () => {
       .send(scores);
     expect(response.body.status).to.equal(400);
     expect(response.body.error).to.equal('Home score is required');
+  });
+});
+
+describe('Update Fixtures with scores', () => {
+  it('should not be able to update scores if not signed in ', async () => {
+    const token = ''
+
+    const scores = {
+      homeTeamScore: 5,
+      awayTeamScore: 3
+    };
+
+    const response = await server
+      .patch(`/api/v1/fixtures/c389140c-6bce-4221-a29c-7fd69d9c45d0/scores`)
+      .set('authorization', `Bearer ${token}`)
+      .send(scores);
+    expect(response.status).to.equal(403);
+    expect(response.body.error).to.equal('No token provided. ');
   });
 });

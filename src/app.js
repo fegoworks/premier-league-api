@@ -37,7 +37,10 @@ app.use('/api/v1', teamRoute)
 app.use('/api/v1', fixtureRoute)
 
 app.get('/', (req, res) => {
-  res.send('Welcome to Mock Premier League Built by Fego');
+  res.send(`<h1>Welcome To The Mock EPL Application</h1>
+  <h4>Please use PostMan and navigate to <code>/api/v1</code> to use the app</h4>
+  <p>For any more info please visit <a href='https://github.com/fegoworks/premier-league-api'>my Github page</a></P>
+  <h4>Thanks  &#x1F600;</h4>`);
 });
 
 app.all('*', (req, res) => {
