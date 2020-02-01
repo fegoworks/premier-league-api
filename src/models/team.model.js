@@ -79,8 +79,7 @@ class TeamModel {
       const {
         rows
       } = await query(updateQuery, values)
-      const updatedTeam = new TeamModel(rows[0])
-      return Promise.resolve(updatedTeam)
+      return Promise.resolve(rows[0])
 
     } catch (error) {
       return Promise.reject(error)

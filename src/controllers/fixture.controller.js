@@ -13,7 +13,7 @@ class FixtureController {
     try {
       const createdFixture = await FixtureModel.add(fixture, user);
 
-      return res.status(200).json({
+      return res.status(201).json({
         status: 'success',
         message: `"${createdFixture.homeTeam} vs ${createdFixture.awayTeam}" created successfully`,
         data: createdFixture,
@@ -80,6 +80,7 @@ class FixtureController {
 
       if (found) {
         const updatedFixture = await FixtureModel.edit(args);
+        console.log(updatedFixture);
 
         return res.status(200).json({
           status: 'success',
@@ -87,7 +88,7 @@ class FixtureController {
           data: updatedFixture,
         });
       }
-      return res.status(400).json({
+      return res.status(404).json({
         status: 'Request failed',
         error: 'Fixture not found',
       })

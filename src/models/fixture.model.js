@@ -26,7 +26,7 @@ class FixtureModel {
       awayTeam
     } = fixture;
     try {
-      const matchDay = new Date(matchDate);
+      const matchDay = new Date(matchDate)
 
       const status = 'pending';
       const addQuery = `INSERT INTO
@@ -81,8 +81,8 @@ class FixtureModel {
       const {
         rows
       } = await query(updateQuery, values);
-      const fixtureUpdate = new fixtureModel(rows[0]);
-      return Promise.resolve(fixtureUpdate);
+
+      return Promise.resolve(rows[0]);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -122,8 +122,8 @@ class FixtureModel {
       const {
         rows
       } = await query(updateQuery, values);
-      const fixtureUpdate = new FixtureModel(rows[0]);
-      return Promise.resolve(fixtureUpdate);
+
+      return Promise.resolve(rows[0]);
     } catch (error) {
       return Promise.reject(error);
     }
