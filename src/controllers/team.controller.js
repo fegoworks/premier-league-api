@@ -14,7 +14,7 @@ class TeamController {
 
       const savedTeam = await TeamModel.add(team, owner)
 
-      return res.status(200).json({
+      return res.status(201).json({
         status: "success",
         message: `${savedTeam.teamName} added successfully`,
         data: savedTeam
@@ -96,7 +96,7 @@ class TeamController {
           data: updatedTeam
         })
       }
-      return res.status(400).json({
+      return res.status(404).json({
         status: 'Request failed',
         error: 'Team not found',
       })
