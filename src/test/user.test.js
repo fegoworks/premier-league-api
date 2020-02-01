@@ -1,7 +1,9 @@
 import supertest from 'supertest';
 import chai from 'chai';
 
-const { expect } = chai;
+const {
+  expect
+} = chai;
 
 import app from '../app';
 
@@ -23,7 +25,9 @@ describe('create new account', () => {
       isAdmin: 'true',
     };
     const loginResponse = await server.post('/api/v1/auth/signin').send(admin);
-    const { token } = loginResponse.body.data;
+    const {
+      token
+    } = loginResponse.body.data;
     const response = await server
       .post('/api/v1/auth/create-user')
       .send(user)
@@ -40,11 +44,12 @@ describe('create new account', () => {
       lastName: 'Masoon',
       email: 'rico@gmail.com',
       password: 'pass',
-      gender: 'female',
       isAdmin: 'true',
     };
     const loginResponse = await server.post('/api/v1/auth/signin').send(admin);
-    const { token } = loginResponse.body.data;
+    const {
+      token
+    } = loginResponse.body.data;
     const response = await server
       .post('/api/v1/auth/create-user')
       .send(user)
