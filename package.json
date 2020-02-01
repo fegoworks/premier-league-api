@@ -11,7 +11,8 @@
     "start": "node dist/app.js",
     "migrations": "node ./src/models/db/migrations/createTables.js createTables",
     "seeders": "node ./src/models/db/seeders/insertTableData.js insertAllTables",
-    "test": "set NODE_ENV='TEST' && npm run migrations && npm run seeders && nyc mocha --timeout=50000 --require @babel/register ./src/test/ --exit || true"
+    "test": "set NODE_ENV='TEST' && npm run migrations && npm run seeders && nyc mocha --timeout=50000 --require @babel/register ./src/test/ --exit || true",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
