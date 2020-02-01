@@ -66,7 +66,6 @@ const validator = {
     }),
     createFixtureSchema: Joi.object().keys({
       matchDate: Joi.date()
-        .iso()
         .required(),
       homeTeam: Joi.string()
         .required()

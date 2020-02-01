@@ -160,7 +160,7 @@ describe('Delete a team', () => {
     } = loginResponse.body.data;
 
     const response = await server
-      .delete(`/api/v1/teams/17fc2435-10c7-48ac-b036-67da4bb0f1ee`)
+      .delete(`/api/v1/teams/17fc2435-10c7-88ac-b046-67da4bb0f1ee`)
       .set('authorization', `Bearer ${token}`);
     expect(response.status).to.equal(200);
     expect(response.body.data.message).to.equal('team successfully deleted');
